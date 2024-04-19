@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="stylesheet" href="assets/fonts.css">
+    <link href="https://fonts.googleapis.com/css?family=Trade+Winds|Gloria+Hallelujah|Share+Tech" rel="stylesheet">
+
+
+</head>
+<body>
+    <div id="container">
+
+        <div class="game-narrative" id="game-narrative-one">
+          <p class="game-narrative-text armenian-text">Մի աշխարհում, որտեղ երկու տերություններ պայքարում են գերիշխանության համար պատերազմից պատռված լանդշաֆտում, միայն մեկն է սահմանագիծը քաշելու և դառնալու գերագույն տիրակալ:</p>
+          <button class="game-btn" id="narrative-one-btn">...</button>
+        </div>
+      
+        <div class="game-narrative" id="game-narrative-two">
+          <p class="game-narrative-text armenian-text">Տարեթիվ - 2048 թ.</p>
+          <p class="game-narrative-text armenian-text">Հետապոկալիպտիկ գալակտիկայում, որը կառավարվում է հսկա կորպորացիաների կողմից, դուք կիբեռնետիկորեն զարգացած տիեզերական ծովային եք՝ առանց ձեր անցյալի հիշողությունների:</p>
+          <button class="game-btn" id="narrative-two-btn">...</button>
+        </div>
+      
+        <div class="game-narrative" id="game-narrative-three">
+          <p class="game-narrative-text armenian-text">Արդյոք դո՞ւ ես ընտրյալը, կանխագուշակվածը մարգարեությամբ</p>
+          <p class="game-narrative-text armenian-text">Արդյոք դու բավականաչափ ուժեղ ես գոյատևելու համար...</p>
+          <div id="narrative-three-btns">
+            <button class="game-btn armenian-text" id="narrative-three-btn">ԱՅՈ</button>
+            <div></div>
+            <a class="game-btn armenian-text" id="puppies-btn" href="https://au.pinterest.com/explore/puppy-pictures/" target="_blank">ՈՉ</a>
+          </div>
+        </div>
+      
+        <div id = "header">
+          <p class="dramatic-text">
+            <span id = "tic-text">Tic </span>
+            <span id = "tac-text">Tac </span>
+            <span id = "doom-text">DOOM</span>
+          </p>
+        </div>
+      
+      
+        <div id="game-configuration"> 
+          <h2 id="identity-label armenian-text">Ընտրեք ձեր նշանը</h2>
+          <div id="identity-selection" class="row">
+            <div class="cell identity-cell" value="X">X</div>
+            <div class="cell identity-cell" value="O">O</div>
+          </div>
+        </div>
+      
+        <div id="game-grid">
+          <div class="row">
+            <div class="cell game-cell" id="c00"></div>
+            <div class="cell game-cell" id="c01"></div>
+            <div class="cell game-cell" id="c02"></div>
+          </div>
+          <div class="row">
+            <div class="cell game-cell" id="c10"></div>
+            <div class="cell game-cell" id="c11"></div>
+            <div class="cell game-cell" id="c12"></div>
+          </div>
+          <div class="row">
+            <div class="cell game-cell" id="c20"></div>
+            <div class="cell game-cell" id="c21"></div>
+            <div class="cell game-cell" id="c22"></div>
+          </div>
+          <div class="computer-threat">
+            <p><span id ="computer-threat-text"></span></p>
+          </div>
+        </div>
+      
+        <div id="game-over">
+          <h2 id="game-end-heading"></h2>
+          <h3 id="game-end-subheading"></h2>
+          <button class="game-btn armenian-text" id="game-reset-btn">&#8634; Խաղալ Նորից</button>
+        </div>
+        
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="assets/script.js"></script>
+      
+</body>
+</html>

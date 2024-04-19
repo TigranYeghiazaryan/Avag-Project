@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        h1, h2 {
+            margin-top: 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Panel</h1>
+    </header>
+    <div class="container">
+        <h2>Verification Requests:</h2>
+        <ul>
+            {% for user in verification_requests %}
+            <li>{{ user }} <a href="/verify_user/{{ user }}" class="btn">Verify</a></li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <h2>Add Blog Content:</h2>
+        <form action="{{ url_for('add_post') }}" method="post">
+            <div class="mb-3">
+              <label for="post_title" class="form-label">Заголовок:</label>
+              <input type="text" class="form-control" id="post_title" name="post_title">
+            </div>
+            <div class="mb-3">
+              <label for="post_content" class="form-label">Текст поста:</label>
+              <textarea class="form-control" id="post_content" name="post_content" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="post_category" class="form-label">Категория:</label>
+              <select class="form-select" id="post_category" name="post_category">
+                <option value="culture">Культура</option>
+                <option value="sport">Спорт</option>
+                <option value="food">Еда</option>
+                <!-- Другие категории -->
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Создать пост</button>
+          </form>
+          
+    </div>
+</body>
+</html>

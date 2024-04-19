@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@{{ username }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: blue;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .profile-info {
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #333;
+            font-weight: bold;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        .status {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .verification-button {
+            margin-top: 20px;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto;
+            overflow: hidden;
+            margin-bottom: 20px; /* Added margin bottom for spacing */
+        }
+
+        .avatar img {
+            width: 100%;
+            height: auto;
+        }
+
+        .settings-button {
+            display: block;
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ name }}</h1>
+        <br>
+        <div class="avatar">
+            <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg" alt="Avatar">
+        </div>
+        <div class="profile-info">
+            <b><p>@{{ username }}</p></b>
+            {% if verified %}
+                <p class="status">Նույնականացում: Հաստատված</p>
+            {% else %}
+                <p class="status">Նույնականացում: Չհաստատված</p>
+                {% if verification_request_sent %}
+                    <p class="verification-sent-text">Նույնականացման հարցումը արդեն ուղարկված է</p>
+                {% else %}
+                    <form action="" method="post" class="verification-form">
+                        <input type="hidden" name="verification_request" value="true">
+                        <button type="submit" class="btn btn-primary verification-button">Ուղարկել նույնականացման հարցում</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+        <a href="/settings" class="btn btn-info settings-button">Настройки</a>
+    </div>
+</body>
+</html>

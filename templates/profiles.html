@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profiles</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding-top: 20px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">User Profiles</h1>
+        <div class="list-group">
+            {% for user in all_users %}
+                <a href="{{ url_for('view_profile', username=user.username) }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                    <img src="{% if user.avatar %}{{ user.avatar }}{% else %}https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg{% endif %}" alt="{{ user.username }} Avatar" class="user-avatar">
+                    {{ user.username }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

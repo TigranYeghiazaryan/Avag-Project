@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ username }}'s Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding-top: 20px;
+        }
+
+        .user-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .profile-info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .status {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .verification-button {
+            margin-top: 20px;
+        }
+
+        .chat-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">{{ username }}'s Profile</h1>
+        <div class="text-center">
+            <img src="{% if avatar %}{{ avatar }}{% else %}https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg{% endif %}" alt="{{ username }} Avatar" class="user-avatar">
+        </div>
+        <div class="profile-info">
+            <p><strong>Username:</strong> {{ username }}</p>
+            {% if verified %}
+                <p class="status text-success">Verification Status: Verified</p>
+            {% else %}
+                <p class="status text-danger">Verification Status: Not Verified</p>
+                <form action="" method="post" class="verification-form">
+                    <input type="hidden" name="verification_request" value="true">
+                </form>
+            {% endif %}
+            <!-- Add button to chat with the user -->
+            <a href="chat.html" class="btn btn-primary chat-button">Chat</a>
+        </div>
+    </div>
+</body>
+</html>

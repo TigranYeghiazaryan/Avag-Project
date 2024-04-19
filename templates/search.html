@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .search-block {
+        margin-bottom: 20px;
+        }
+
+        #searchInput {
+        width: 300px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+        }
+
+        .filters {
+        margin-bottom: 10px;
+        }
+
+        .filters label {
+        margin-right: 10px;
+        }
+
+        #searchButton {
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        }
+
+        #searchButton:hover {
+        background-color: #0056b3;
+        }
+
+        #searchResults {
+        margin-top: 20px;
+        /* Стилизуйте результаты поиска по своему усмотрению */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="search-block">
+        <input type="text" id="searchInput" placeholder="Поиск...">
+        <div class="filters">
+            <label><input type="checkbox" name="users"> Пользователи</label>
+            <label><input type="checkbox" name="posts"> Посты</label>
+            <!-- Добавьте другие фильтры по мере необходимости -->
+        </div>
+        <button id="searchButton">Искать</button>
+    </div>
+    <div id="searchResults">
+        <!-- Здесь будут отображаться результаты поиска -->
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    var searchInput = document.getElementById("searchInput");
+    var searchButton = document.getElementById("searchButton");
+    var searchResults = document.getElementById("searchResults");
+
+    searchButton.addEventListener("click", function() {
+        var query = searchInput.value;
+        var usersChecked = document.querySelector('input[name="users"]').checked;
+        var postsChecked = document.querySelector('input[name="posts"]').checked;
+
+        // Очистка предыдущих результатов поиска
+        searchResults.innerHTML = "";
+
+        // Отправка запроса на сервер
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/search", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    displaySearchResults(response);
+                } else {
+                    console.error("Ошибка при выполнении запроса");
+                }
+            }
+        };
+
+        var data = {
+            query: query,
+            usersChecked: usersChecked,
+            postsChecked: postsChecked
+        };
+
+        xhr.send(JSON.stringify(data));
+    });
+
+    function displaySearchResults(results) {
+        // Отображение результатов поиска на странице
+        // Это может быть вставка HTML кода или иное действие в зависимости от формата данных
+    }
+});
+
+    </script>
+</body>
+</html>

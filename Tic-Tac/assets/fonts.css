@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'Artsakh-Font';
+    src: url('fonts/Artsakh-Font.otf') format('truetype');
+    /* Дополнительные стили для поддержки различных браузеров */
+    font-weight: normal;
+    font-style: normal;
+}
+
+.armenian-text {
+    font-family: 'Artsakh-Font';
+}
