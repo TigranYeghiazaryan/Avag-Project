@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Games</title>
 
     <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
     <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
@@ -32,9 +33,9 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a href="index.html">Blog</a></li>
+                    <li><a href="index.html">Գլխավոր էջ</a></li>
                     <li><a href="single-post.html">Խաղեր</a></li>
-                    <li class="dropdown"><a href="category.html"><span>Categories</span> <i
+                    <li class="dropdown"><a href="category.html"><span>Կատեգորիաներ</span> <i
                                 class="bi bi-chevron-down dropdown-indicator"></i></a>
                         <ul>
                             <li><a href="search-result.html">Search Result</a></li>
@@ -55,7 +56,7 @@
                         </ul>
                     </li>
 
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="about.html">Մեր Մասին</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav><!-- .navbar -->
@@ -69,9 +70,6 @@
                 <img src="{{ current_user.avatar }}" alt="Avatar" class="mx-2">
                 <span>{{ current_user.name }}</span>
                 {% endif %}
-                <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
-                <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
-                <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
 
                 <a href="#" class="mx-2 js-search-open"><span class="bi-search"></span></a>
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -100,15 +98,16 @@
 
         <div class="container">
             <div class="games-container">
-                <div class="game-preview">
+                <div class="game-preview" onclick="window.location.href='{{ url_for('tictac') }}'">
                     <img src="{{ url_for('static', filename='img/game1.png') }}" alt="Game 1">
                     <h2>Tic-Tac DOOM</h2>
                     <p>v0.1</p>
                 </div>
+                
                 <div class="game-preview">
                     <img src="{{ url_for('static', filename='img/game2.png') }}" alt="Game 2">
                     <h2>Mafia</h2>
-                    <p>v0.1 Coming Soon....</p>
+                    <p>Coming Soon....</p>
                 </div>
                 <div class="game-preview">
                     <img src="{{ url_for('static', filename='img/game1.png') }}" alt="Game 3">

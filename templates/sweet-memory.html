@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/memory.scss') }}">
+    <title>Document</title>
+
+</head>
+<body>
+    <div id="score-panel">
+        <ul class="stars">
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+            <li><i class="fa fa-star"></i></li>
+        </ul>
+        <span class="moves">0</span> Moves
+        <div class="restart">
+            <i class="fa fa-repeat"></i>
+        </div>
+    </div>
+    <ul class="deck"></ul>
+    
+<script src="{{ url_for('static', filename='js/sweet.js') }}"></script>
+</body>
+</html>

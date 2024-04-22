@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+       * {
+       margin: 0;
+       padding: 0
+       }
+
+       body {
+       background-color: #BE9B7B;
+       }
+
+       .card {
+       width: 350px;
+       background-color: #efefef;
+       border: none;
+       cursor: pointer;
+       transition: all 0.5s;
+       box-shadow: 0 8px 8px rgba(63, 47, 32, 0.2); /* Cocoa color shadow */
+
+       }
+
+       .image img {
+       transition: all 0.5s;
+       border-radius: 50%; /* Make the image round */
+       width: 100px; /* Adjust the width of the image */
+       height: 100px; /* Adjust the height of the image */
+       box-shadow: 0 3px 8px rgba(63, 47, 32, 0.2); /* Cocoa color shadow */
+
+       }
+
+       .btn {
+       height: 140px;
+       width: 140px;
+       border-radius: 50%
+       }
+
+       .btn {
+       height: 140px;
+       width: 140px;
+       }
+
+       .name {
+       font-size: 22px;
+       font-weight: bold
+       }
+
+       .idd {
+       font-size: 14px;
+       font-weight: 600
+       }
+
+       .idd1 {
+       font-size: 12px
+       }
+
+       .number {
+       font-size: 22px;
+       font-weight: bold
+       }
+
+       .follow {
+       font-size: 12px;
+       font-weight: 500;
+       color: #444444
+       }
+
+       .btn1 {
+       height: 40px;
+       width: 150px;
+       border: none;
+       background-color: #000;
+       color: #aeaeae;
+       font-size: 15px
+       }
+
+       .text span {
+       font-size: 13px;
+       color: #545454;
+       font-weight: 500
+       }
+
+       .icons i {
+       font-size: 19px
+       }
+
+       hr .new1 {
+       border: 1px solid
+       }
+
+       .join {
+       font-size: 14px;
+       color: #a0a0a0;
+       font-weight: bold
+       }
+
+       .date {
+       background-color: #ccc
+       }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <div class="card p-4">
+            <h2>Edit Profile</h2>
+            <form action="{{ url_for('edit') }}" method="POST">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="avatar">Avatar</label>
+                    <input type="text" class="form-control" id="avatar" name="avatar" placeholder="Enter URL for your avatar">
+                </div>
+                <button type="submit" class="btn btn-dark">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</body>
+</html>

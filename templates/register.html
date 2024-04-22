@@ -1,43 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Регистрация</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Регистрация</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/registrations/registration-6/assets/css/registration-6.css">
+  <style>
+    /* Custom styles for your project */
+    body.custom-background {
+    background-color: #BE9B7B;
+    }
+
+    .container {
+      padding-top: 50px; /* Adjust padding for spacing */
+    }
+
+    .card {
+      border-radius: 10px; /* Smooth corners for the card */
+    }
+
+    h2 {
+      color: #333; /* Darker text for headers */
+    }
+
+    .form-floating {
+      margin-bottom: 15px; /* Consistent margin between form fields */
+    }
+
+    .form-check {
+      margin-top: 10px; /* Add spacing for checkboxes */
+    }
+
+    .btn {
+      background-color: #007bff; /* Primary blue button */
+      color: #fff; /* White text on buttons */
+    }
+
+    .btn:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+    }
+
+    /* Adjustments for smaller screens */
+    @media (max-width: 767px) {
+      .col-12 {
+        text-align: center; /* Center text on smaller screens */
+      }
+    }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <h1 class="mt-5 text-center">Регистрация нового пользователя</h1>
-        <form class="mt-4" method="POST" action="/register">
-            <div class="form-group">
-                <label for="name">ФИО:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+<body class="custom-background">
+    <section class="bg-primary p-3 p-md-4 p-xl-5">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+              <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-3 p-md-4 p-xl-5">
+                  <div class="row">
+                    <div class="col-12 text-center">
+                      <h2>Регистрация нового пользователя</h2>
+                      <p>Введите ваши данные, чтобы зарегистрироваться</p>
+                    </div>
+                  </div>
+                  <form action="/register" method="POST">
+                    <div class="row gy-3">
+                      <div class="col-12">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" name="name" id="name" placeholder="ФИО" required>
+                          <label for="name">ФИО</label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" name="username" id="username" placeholder="Имя пользователя" required>
+                          <label for="username">Имя пользователя</label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-floating">
+                          <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                          <label for="email">Email</label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" name="password" id="password" placeholder="Пароль" required>
+                          <label for="password">Пароль</label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-floating">
+                          <select class="form-control" name="class" id="class" required>
+                            <option value="">Выберите класс (школу)</option>
+                            <option value="10А">10Ա</option>
+                            <option value="10Б">10Բ</option>
+                            <option value="10В">10Գ</option>
+                            <!-- Добавьте другие варианты, если нужно -->
+                          </select>
+                          <label for="class">Класс</label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="iAgree" id="iAgree" required>
+                          <label class="form-check-label" for="iAgree">
+                            Я соглашаюсь с <a href="#!" class="link-primary">условиями использования</a>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="d-grid">
+                          <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="row">
+                    <div class="col-12">
+                      <hr class="mt-5 mb-4">
+                      <p>Уже есть аккаунт? <a href="/login" class="link-primary">Войти</a></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <p class="mt-3">Или продолжите с помощью:</p>
+                      <div class="d-flex gap-3 flex-column">
+                        <a href="#!" class="btn btn-danger">Sign in with Google</a>
+                        <a href="#!" class="btn btn-primary">Sign in with Facebook</a>
+                        <a href="#!" class="btn btn-info">Sign in with Twitter</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-                <label for="username">Имя пользователя:</label>
-                <input type="text" class="form-control" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Пароль:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="class">Класс:</label>
-                <select class="form-control" id="class" name="class" required>
-                    <option value="">Выберите класс (школу)</option>
-                    <option value="1">10Ա</option>
-                    <option value="2">10Բ</option>
-                    <option value="3">10Գ</option>
-                    <!-- Добавьте другие классы по мере необходимости -->
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-        </form>
-        <p class="mt-3 text-center">Уже зарегистрированы? <a href="/login">Войдите здесь</a>.</p>
-    </div>
+          </div>
+        </div>
+    </section>
 </body>
 </html>
