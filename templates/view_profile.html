@@ -3,140 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <title>@{{ username }}</title>
+    <title>{{ user.username }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <style>
         * {
-    margin: 0;
-    padding: 0
-}
+            margin: 0;
+            padding: 0;
+        }
 
-body {
-    background-color: #000
-}
+        body {
+            background-color: #BE9B7B;
+        }
 
-.card {
-    width: 350px;
-    background-color: #efefef;
-    border: none;
-    cursor: pointer;
-    transition: all 0.5s;
-}
+        .card {
+            width: 350px;
+            background-color: #efefef;
+            border: none;
+            cursor: pointer;
+            transition: all 0.5s;
+            box-shadow: 0 8px 8px rgba(63, 47, 32, 0.2); /* Cocoa color shadow */
+        }
 
-.image img {
-    transition: all 0.5s;
-    border-radius: 50%; /* Make the image round */
-    width: 100px; /* Adjust the width of the image */
-    height: 100px; /* Adjust the height of the image */
-}
+        .image img {
+        transition: all 0.5s;
+        border-radius: 50%; /* Сохраняет форму круга */
+        width: 120px; /* Новая ширина */
+        height: 120px; /* Новая высота */
+        object-fit: cover; /* Сохраняет пропорции */
+        box-shadow: 0 3px 8px rgba(63, 47, 32, 0.2); /* Тень вокруг аватарки */
+        }
 
-.btn {
-    height: 140px;
-    width: 140px;
-    border-radius: 50%
-}
+        .name {
+            font-size: 22px;
+            font-weight: bold;
+        }
 
-.name {
-    font-size: 22px;
-    font-weight: bold
-}
+        .idd {
+            font-size: 14px;
+            font-weight: 600;
+        }
 
-.idd {
-    font-size: 14px;
-    font-weight: 600
-}
+        .idd1 {
+            font-size: 12px;
+        }
 
-.idd1 {
-    font-size: 12px
-}
+        .number {
+            font-size: 22px;
+            font-weight: bold;
+        }
 
-.number {
-    font-size: 22px;
-    font-weight: bold
-}
+        .follow {
+            font-size: 12px;
+            font-weight: 500;
+            color: #444444;
+        }
 
-.follow {
-    font-size: 12px;
-    font-weight: 500;
-    color: #444444
-}
+        .text span {
+            font-size: 13px;
+            color: #545454;
+            font-weight: 500;
+        }
 
-.btn1 {
-    height: 40px;
-    width: 150px;
-    border: none;
-    background-color: #000;
-    color: #aeaeae;
-    font-size: 15px
-}
+        .icons i {
+            font-size: 19px;
+        }
 
-.text span {
-    font-size: 13px;
-    color: #545454;
-    font-weight: 500
-}
+        .join {
+            font-size: 14px;
+            color: #a0a0a0;
+            font-weight: bold;
+        }
 
-.icons i {
-    font-size: 19px
-}
+        .date {
+            background-color: #ccc;
+        }
 
-hr .new1 {
-    border: 1px solid
-}
+        .bio-container {
+            background-color: #fff; /* Белый фон */
+            padding: 20px; /* Отступы внутри блока */
+            border-radius: 10px; /* Закругленные углы */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Легкая тень */
+            margin: 20px auto; /* Центрирование */
+            max-width: 400px; /* Ограничение ширины */
+            text-align: center; /* Центрирование текста */
+        }
+        .common-friends-container {
+            padding: 10px;
+            background-color: #f7f7f7; /* Светлый фон */
+            border-radius: 5px; /* Легкие закругления */
+            margin-top: 10px; /* Отступ сверху */
+        }
 
-.join {
-    font-size: 14px;
-    color: #a0a0a0;
-    font-weight: bold
-}
+        .small-avatar {
+            border-radius: 50%; /* Круглая форма */
+            width: 40px; /* Ширина маленькой аватарки */
+            height: 40px; /* Высота маленькой аватарки */
+            object-fit: cover; /* Подгонка по размеру */
+            box-shadow: 0 2px 5px rgba(63, 47, 32, 0.15); /* Легкая тень */
+        }
 
-.date {
-    background-color: #ccc
-}
+        .common-friend {
+            text-align: center; /* Центрирование текста */
+        }
     </style>
 </head>
 <body>
 
-    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
-        <div class="card p-4">
-            <div class="image d-flex flex-column justify-content-center align-items-center">
-                <a href="{{ url_for('profile', username=current_user.username) }}">
-                    <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg" alt="Avatar" class="mx-2" style="width: 100px; height: 100px;">
-                </a>
-                <span class="name mt-3">{{ name }}</span>
-                <span class="idd">@{{ username }}</span>
-                <div class="d-flex flex-row justify-content-center align-items-center gap-2">
-                    <span class="idd1">Oxc4c16a645_b21a</span>
+<div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+    <div class="card p-4">
+        <div class="image d-flex flex-column justify-content-center align-items-center">
+            <div class="avatar-preview">
+                <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg" alt="Profile Image"> <!-- Используем URL изображения профиля -->
+            </div>
+            <span class="name mt-3">{{ user.name }}</span>
+            <span class="idd">@{{ user.username }}</span>
+            <div class="d-flex flex-row justify-content-center align-items-center gap-2">
+                {% if user.verified %}
+                <span class="idd1">Verified</span>
+                {% else %}
+                <span class="idd1">Not Verified</span>
+                {% endif %}
+            </div>
+            <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+                {% if is_friend %}
+                    <!-- Иконка чата -->
+                    <button class="btn btn-primary">
+                        <i class="bi bi-chat-dots"></i> Chat
+                    </button>
+                {% else %}
+                    <!-- Иконка "Добавить в друзья" -->
+                    <button class="btn btn-success">
+                        <i class="bi bi-person-plus-fill"></i> Add Friend
+                    </button>
+                {% endif %}
+            </div>   
+            <div class="bio-container">
+                <span>{{ user.bio }}</span> <!-- Отображаем биографию -->
+            </div>
+            {% if common_friends %}
+            <div class="common-friends-container">  <!-- Контейнер для общих друзей -->
+                <h5>Common Friends:</h5>
+                <div class="d-flex flex-row align-items-center">
+                    {% for friend in common_friends %}
+                        <div class="common-friend" style="margin-right: 10px;">  <!-- Отдельный друг -->
+                            <img src="{{ friend.avatar_url }}" alt="{{ friend.name }}" class="small-avatar" />  <!-- Аватарка друга -->
+                            <span>{{ friend.name }}</span>  <!-- Имя друга -->
+                        </div>
+                    {% endfor %}
                 </div>
-                <div class="d-flex flex-row justify-content-center align-items-center mt-3">
-                    <span class="number">1069 <span class="follow">Friends</span></span>
-                </div>
-                <div class="d-flex mt-2">
-                    <button class="btn1 btn-dark">Edit Profile</button>
-                </div>
-                <div class="text mt-3">
-                    <span>No Bio Yet :)</span>
-                </div>
-                <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center">
-                    <span><i class="fa fa-twitter"></i></span>
-                    <span><i class="fa fa-facebook-f"></i></span>
-                    <span><i class="fa fa-instagram"></i></span>
-                    <span><i class="fa fa-linkedin"></i></span>
-                </div>
-                <div class="px-2 rounded mt-4 date">
-                    <span class="join">Joined May,2021</span>
-                </div>
+            </div>
+            {% endif %}
+            <div class="px-2 rounded mt-4 date">
+                <span class="join">AVAG PROJECT BETA</span>
             </div>
         </div>
     </div>
-    
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<script>
+$(document).ready(function() {
+    // Клик-обработчик кнопки "Добавить в друзья"
+    $('#friend-request-button').click(function() {
+    if (!$(this).hasClass('btn-secondary')) { // Если запрос еще не отправлен
+        $(this).removeClass('btn-success').addClass('btn-secondary'); // Становится серой
+        $(this).prop('disabled', true); // Деактивируем кнопку
+        $(this).html('<i class="bi bi-hourglass-split"></i> Pending'); // Меняем иконку и текст
+
+        // Отправка AJAX-запроса на сервер
+        $.post('/send_friend_request', {requested_username: 'target_username'}, function(response) {
+            if (response.status !== 'success') {
+                alert('Something went wrong'); // При возникновении ошибки
+                $('#friend-request-button').prop('disabled', false); // Восстанавливаем кнопку
+                $('#friend-request-button').html('<i class="bi bi-person-plus-fill"></i> Add Friend'); // Возвращаем текст и иконку
+            }
+        });
+    }
+    });
+});
+</script>
+
 </body>
 </html>
-
-
-

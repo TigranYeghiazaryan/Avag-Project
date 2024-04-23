@@ -137,11 +137,14 @@
 
     <script>
 $(document).ready(function() {
-    $('#search-user'). on('input', function() {
+    $('#search-user').on('input', function() {
         let searchTerm = $(this).val().trim(); // Получаем значение из поля ввода
         let currentUsername = '{{ session["username"] }}'; // Имя текущего пользователя
 
-        $.post('{{ url_for("search_users") }}', { query: searchTerm }, function(data) {
+        // Правильный маршрут для поиска пользователей
+        let searchRoute = '{{ url_for("search_users") }}'; // Проверьте правильность имени маршрута
+
+        $.post(searchRoute, { query: searchTerm }, function(data) {
             let user_list = $('#user-list');
             user_list.empty();
 
@@ -149,14 +152,14 @@ $(document).ready(function() {
                 data.forEach(function(user) {
                     if (user.username !== currentUsername) {
                         let userCard = `
-                            <div class="col-sm-12 col-md-4 mb-4"> <!-- Адаптировано -->
+                            <div class="col-sm-12 col-md-4 mb-4">
                                 <div class="card text-center">
                                     <img src="${user.avatar}" class="card-img-top rounded-circle mx-auto mt-3" style="width: 100px;" alt="Friend Avatar">
                                     <div class="card-body">
                                         <h5 class="card-title">${user.name}</h5>
                                         <p class="card-text">${user.username}</p>
                                         <div class="d-flex justify-content-center">
-                                            <a href="/view/${user.username}" class="btn btn-primary mr-2">View Profile</a>
+                                            <a href="/view_profile/${user.username}" class="btn btn-primary mr-2">View Profile</a>
                                             <button class="btn btn-success send-friend-request" data-username="${user.username}">Add Friend</button>
                                         </div>
                                     </div>
@@ -170,13 +173,18 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.send-friend-request', function() {
-        let username = $(this).data('username'); 
+        let username = $(this).data('username');
 
-        $.post('{{ url_for("send_friend_request") }}', { username: username }, function(response) {
+        // Правильный маршрут для отправки запросов в друзья
+        let friendRequestRoute = '{{ url_for("send_friend_request") }}'; // Проверьте правильность имени маршрута
+
+        $.post(friendRequestRoute, { username: username }, function(response) {
             alert("Friend request sent!");
         });
     });
 });
+
+
     </script>
     
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, make_response, jsonify, abort
+from flask import Flask, render_template, request, redirect, url_for, session, make_response, jsonify, abort, flash
 from datetime import timedelta
 from pymongo import MongoClient
 from flask_login import LoginManager, login_user, current_user, login_required
@@ -6,6 +6,7 @@ from flask_login import UserMixin
 from gridfs import GridFS
 from bson.objectid import ObjectId
 import secrets
+
 
 app = Flask(__name__)
 secret_key = secrets.token_hex(16)
@@ -146,19 +147,6 @@ def upload_profile_image():
     else:
         return jsonify({'error': 'Failed to upload image'}), 500
 
-@app.route('/profile/<username>')
-def view_profile(username):
-    # Проверяем, вошел ли пользователь
-    if 'username' not in session:
-        return redirect(url_for('login'))
-
-    # Проверяем, что пользователь пытается зайти в свой профиль
-    if session['username'] != username:
-        return "You do not have permission to view this profile", 403
-
-    # Если все проверки пройдены, вернуть профиль
-    return render_template('profile.html', username=username)
-
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_panel():
@@ -205,6 +193,10 @@ def games():
     return render_template('games.html')  # Render the 'games.html' template
 
 
+def get_user_profile(username):
+    return collection.find_one({"username": username})  # Получение профиля по имени пользователя
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -233,6 +225,23 @@ def login():
     
     # For GET requests, render the login page
     return render_template('login.html')
+
+
+@app.route('/view_profile/<username>')
+def view_other_profile(username):
+    if 'username' not in session:  # Если пользователь не вошел, перенаправьте на страницу входа
+        flash("You need to be logged in to view profiles.")  # Дополнительное сообщение
+        return redirect(url_for('login'))
+
+    user_profile = get_user_profile(username)  # Получаем профиль пользователя из MongoDB
+    if not user_profile:  # Если профиль не найден, верните ошибку 404
+        abort(404, description="Profile not found")
+
+    # Проверка, является ли текущий пользователь другом с профилем, который он просматривает
+    current_username = session['username']
+    is_friend = current_username in user_profile.get('friends', [])
+
+    return render_template('view_profile.html', user=user_profile, is_friend=is_friend)
 
 @app.route('/verify_user/<username>')
 def verify_user(username):
@@ -299,26 +308,26 @@ def friends():
 @app.route('/send_friend_request', methods=['POST'])
 def send_friend_request():
     if 'username' not in session:
-        return redirect(url_for('login'))
+        return jsonify({'status': 'error', 'message': 'Unauthorized'}), 401
 
     current_username = session['username']
-    requested_username = request.form.get('search_user')
+    requested_username = request.form.get('requested_username')  # Правильное имя ключа для поиска
 
     if not requested_username:
-        return "Invalid request", 400
+        return jsonify({'status': 'error', 'message': 'Invalid request'}), 400
 
     requested_user = collection.find_one({'username': requested_username})
 
     if not requested_user:
-        return f"User {requested_username} not found", 404
+        return jsonify({'status': 'error', 'message': f"User {requested_username} not found"}), 404
 
-    # Update the requested user's pending friend requests
+    # Добавить запрос в список ожидающих запросов
     collection.update_one(
         {'username': requested_username},
         {'$addToSet': {'pending_friend_requests': current_username}}
     )
 
-    return redirect(url_for('friends'))
+    return jsonify({'status': 'success', 'message': 'Friend request sent'})  # Возвращаем JSON-ответ
 
 
 @app.route('/accept_friend_request', methods=['POST'])
