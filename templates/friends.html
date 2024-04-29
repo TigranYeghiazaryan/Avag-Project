@@ -2,123 +2,126 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Friends</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    
+
     <style>
-        * {
+        /* Общие стили */
+        body {
+            background-color: #F0F0F0; /* Светлый фон */
             margin: 0;
             padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Гармоничный шрифт */
         }
 
-        body {
-            background-color: #BE9B7B;
+        /* Заголовок страницы */
+        .page-header {
+            background-color: #4A90E2; /* Синий заголовок */
+            color: #fff; /* Белый текст */
+            padding: 20px; /* Внутренние отступы */
+            text-align: center; /* Центрирование текста */
+            border-bottom: 5px solid #357ABD; /* Нижняя граница */
         }
 
+        /* Контейнер для содержимого */
+        .container {
+            margin-top: 20px; /* Отступ сверху */
+            padding: 20px; /* Внутренние отступы */
+            background-color: #ffffff; /* Белый фон */
+            border-radius: 10px; /* Закругленные углы */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Легкая тень */
+        }
+
+        /* Секция поиска */
+        .search-input {
+            width: 80%; /* Широкое поле поиска */
+            padding: 10px; /* Внутренние отступы */
+            border-radius: 25px; /* Закругленные углы */
+            border: 1px solid #ddd; /* Светлая граница */
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая внутренняя тень */
+            transition: all 0.3s; /* Плавный переход */
+        }
+
+        .search-input:focus {
+            border-color: #4A90E2; /* Акцентированный цвет при фокусе */
+            box-shadow: 0 0 10px rgba(74, 144, 226, 0.5); /* Сильная тень при фокусе */
+        }
+
+        /* Карточки друзей */
         .card {
-            background-color: #efefef;
-            border: none;
-            cursor: pointer;
-            transition: all 0.5s;
-            box-shadow: 0 8px 8px rgba(63, 47, 32, 0.2); /* Cocoa color shadow */
+            border-radius: 15px; /* Закругленные углы */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Легкая тень */
+            transition: transform 0.3s; /* Плавный переход при наведении */
         }
 
-        .image img {
-            transition: all 0.5s;
-            border-radius: 50%; /* Make the image round */
-            width: 100px; /* Adjust the width of the image */
-            height: 100px; /* Adjust the height of the image */
-            object-fit: cover; /* Maintain aspect ratio and cover the entire container */
-            box-shadow: 0 3px 8px rgba(63, 47, 32, 0.2); /* Cocoa color shadow */
+        .card:hover {
+            transform: translateY(-10px); /* Поднимается при наведении */
         }
 
-        .btn1 {
-            height: 40px;
-            width: 150px;
-            border: none;
-            background-color: #000;
-            color: #aeaeae;
-            font-size: 15px;
+        .card img {
+            border-radius: 50%; /* Круглое изображение */
+            border: 2px solid #ddd; /* Легкая граница */
+            width: 80px; /* Размер аватара */
+            height: 80px; /* Размер аватара */
+            object-fit: cover; /* Сохранение пропорций */
         }
 
-        .btn1 a {
-            display: block;
-            height: 100%;
-            width: 100%;
-            color: #aeaeae;
-            text-decoration: none;
-            line-height: 40px;
-            text-align: center;
+        .card-body {
+            padding: 15px; /* Внутренние отступы */
         }
 
-        .btn1:hover {
-            background-color: #333;
+        .card-title {
+            font-size: 18px; /* Размер шрифта */
+            font-weight: bold; /* Полужирный шрифт */
+            color: #333; /* Темный текст */
         }
 
-        .name {
-            font-size: 22px;
-            font-weight: bold;
+        .card-text {
+            font-size: 14px; /* Размер шрифта */
+            color: #555; /* Серый текст */
         }
 
-        .number {
-            font-size: 22px;
-            font-weight: bold;
+        .button-group {
+            display: flex; /* Выравнивание кнопок */
+            justify-content: center; /* Центрирование кнопок */
+            margin-top: 10px; /* Отступ сверху */
         }
 
-        .follow {
-            font-size: 12px;
-            color: #444444;
+        .button-group .btn {
+            margin-right: 10px; /* Отступ между кнопками */
+            border-radius: 20px; /* Закругленные углы */
+            transition: all 0.3s; /* Плавный переход */
         }
 
-        .avatar-upload {
-            position: relative;
-            max-width: 200px;
-            margin: 50px auto;
-        }
-
-        .avatar-edit {
-            position: absolute;
-            right: 8px;
-            z-index: 1;
-            top: 1px;
-        }
-
-        .avatar-preview {
-            width: 100%;
-            height: auto;
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-        }
-
-        .avatar-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .button-group .btn:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Тень при наведении */
         }
     </style>
 </head>
 <body>
-    <div class="container-fluid mt-4"> <!-- Изменено на container-fluid -->
-        <h1 class="text-center">Friends</h1>
+    <div class="page-header">
+        <h1>Friends</h1>
+    </div>
 
-        <div class="mb-4">
-            <div class="input-group">
-                <input type="text" id="search-user" class="form-control" placeholder="Search for users...">
-            </div>
+    <div class="container">
+        <div class="text-center mb-4">
+            <input type="text" id="search-user" class="search-input" placeholder="Search for friends...">
         </div>
 
-        <div class="row" id="user-list"> <!-- Адаптировано для мобильных -->
+        <div class="row" id="user-list">
             {% for friend in friends %}
-            <div class="col-sm-12 col-md-4 mb-4"> <!-- Поддержка мобильных -->
+            <div class="col-md-4 mb-4">
                 <div class="card text-center">
-                    <img src="{{ friend.avatar }}" class="card-img-top rounded-circle mx-auto mt-3" style="width: 100px;" alt="Friend Avatar">
+                    <img src="{{ friend.avatar }}" alt="Avatar" class="card-img-top rounded-circle mx-auto mt-3">
                     <div class="card-body">
                         <h5 class="card-title">{{ friend.name }}</h5>
-                        <p class="card-text">{{ friend.username }}</p>
-                        <div class="d-flex justify-content-center">
-                            <a href="{{ url_for('profile', username=friend.username) }}" class="btn btn-primary mr-2">View Profile</a>
+                        <p class="card-text">@{{ friend.username }}</p>
+                        <div class="button-group">
+                            <a href="{{ url_for('profile', username=friend.username) }}" class="btn btn-primary">View Profile</a>
                             <form method="post" action="{{ url_for('remove_friend') }}">
                                 <input type="hidden" name="friend_to_remove" value="{{ friend.username }}">
                                 <button type="submit" class="btn btn-danger">Remove Friend</button>
@@ -130,63 +133,65 @@
             {% endfor %}
         </div>
 
-        <div class="d-flex justify-content-center mt-3"> <!-- Поддержка мобильных -->
+        <div class="text-center mt-4">
             <a href="{{ url_for('profile', username=session['username']) }}" class="btn btn-dark">Back to Profile</a>
         </div>
     </div>
 
     <script>
-$(document).ready(function() {
-    $('#search-user').on('input', function() {
-        let searchTerm = $(this).val().trim(); // Получаем значение из поля ввода
-        let currentUsername = '{{ session["username"] }}'; // Имя текущего пользователя
+        $(document).ready(function() {
+            $('#search-user').on('input', function() {
+                let searchTerm = $(this).val().trim();
 
-        // Правильный маршрут для поиска пользователей
-        let searchRoute = '{{ url_for("search_users") }}'; // Проверьте правильность имени маршрута
+                $.post('{{ url_for("search_users") }}', { query: searchTerm }, function(data) {
+                    $('#user-list').empty();
 
-        $.post(searchRoute, { query: searchTerm }, function(data) {
-            let user_list = $('#user-list');
-            user_list.empty();
-
-            if (data.length > 0) {
-                data.forEach(function(user) {
-                    if (user.username !== currentUsername) {
-                        let userCard = `
-                            <div class="col-sm-12 col-md-4 mb-4">
-                                <div class="card text-center">
-                                    <img src="${user.avatar}" class="card-img-top rounded-circle mx-auto mt-3" style="width: 100px;" alt="Friend Avatar">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${user.name}</h5>
-                                        <p class="card-text">${user.username}</p>
-                                        <div class="d-flex justify-content-center">
-                                            <a href="/view_profile/${user.username}" class="btn btn-primary mr-2">View Profile</a>
-                                            <button class="btn btn-success send-friend-request" data-username="${user.username}">Add Friend</button>
+                    if (data.length > 0) {
+                        data.forEach(function(user) {
+                            let userCard = `
+                                <div class="col-md-4 mb-4">
+                                    <div class="card text-center">
+                                        <img src="${user.avatar}" class="card-img-top rounded-circle mx-auto mt-3" style="width: 80px;" alt="User Avatar">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${user.name}</h5>
+                                            <p class="card-text">@${user.username}</p>
+                                            <div class="button-group">
+                                                <a href="/view_profile/${user.username}" class="btn btn-primary">View Profile</a>
+                                                <button class="btn btn-success send-friend-request" data-username="${user.username}">Add Friend</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>`;
-                        user_list.append(userCard);
+                                </div>`;
+                            $('#user-list').append(userCard);
+                        });
+                    } else {
+                        $('#user-list').append('<p>No users found.</p>');
                     }
                 });
-            }
+            });
+
+            $(document).on('click', '.send-friend-request', function() {
+                let button = $(this);
+                let username = button.data('username');
+
+                button.removeClass('btn-success').addClass('btn-secondary');
+                button.prop('disabled', true);
+                button.html('<i class="bi bi-hourglass-split"></i> Pending');
+
+                $.post('{{ url_for("send_friend_request") }}', { requested_username: username }, function(response) {
+                    if (response.status === 'success') {
+                        alert("Friend request sent!");
+                    } else {
+                        alert("Error sending friend request.");
+                        button.prop('disabled', false);
+                        button.removeClass('btn-secondary').addClass('btn-success');
+                        button.html('Add Friend');
+                    }
+                });
+            });
         });
-    });
-
-    $(document).on('click', '.send-friend-request', function() {
-        let username = $(this).data('username');
-
-        // Правильный маршрут для отправки запросов в друзья
-        let friendRequestRoute = '{{ url_for("send_friend_request") }}'; // Проверьте правильность имени маршрута
-
-        $.post(friendRequestRoute, { username: username }, function(response) {
-            alert("Friend request sent!");
-        });
-    });
-});
-
-
     </script>
-    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS -->
 </body>
 </html>

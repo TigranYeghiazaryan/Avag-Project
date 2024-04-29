@@ -1,0 +1,121 @@
+@use "sass:math";  // Import math module for division
+
+// General settings
+$field-width = 500px;
+$grid-spacing = 15px;
+$grid-row-cells = 4;
+
+// Fixing division issues
+$tile-size = math.div($field-width - $grid-spacing * ($grid-row-cells + 1), $grid-row-cells);
+
+$text-color = #776E65;
+$bright-text-color = #f9f6f2;
+
+$tile-color = #eee4da;
+$tile-gold-color = #edc22e;
+$tile-gold-glow-color = lighten($tile-gold-color, 15%);
+
+$game-container-background = #bbada0;
+
+$transition-speed = 100ms;
+
+// Transition mixins
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+}
+
+@mixin transition-property($args...) {
+  -webkit-transition-property: $args;
+  -moz-transition-property: $args;
+}
+
+// Keyframe animations
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes $animation-name {
+    @content;
+  }
+  @keyframes $animation-name {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+}
+
+@mixin animation-fill-mode($str) {
+  -webkit-animation-fill-mode: #{$str};
+  -moz-animation-fill-mode: #{$str};
+  animation-fill-mode: #{$str};
+}
+
+// Media queries
+@mixin smaller($width) {
+  @media screen and (max-width: $width) {
+    @content;
+  }
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #faf8ef;
+  color: $text-color;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+}
+
+body {
+  margin: 80px 0;
+}
+
+.score-container {
+  position: relative;
+  float: right;
+  background: $game-container-background;
+  padding: 15px 25px;
+  font-size: math.div($height, 1) + 22;  // Using math.div
+  height: math.div($height, 1);
+  line-height: math.div($height, 1) + 22;
+  font-weight: bold;
+  border-radius: 3px;
+  color: white;
+  margin-top: 8px;
+
+  &:after {
+    position: absolute;
+    width: 100%;
+    top: 10px;
+    left: 0;
+    content: "Score";
+    text-transform: uppercase;
+    font-size: 13px;
+    line-height: 13px;
+    text-align: center;
+    color: $tile-color;
+  }
+
+  .score-addition {
+    color: red;
+    font-size: math.div($height, 1);  // Ensure proper units
+    line-height: math.div($height, 1);
+    font-weight: bold;
+    z-index: 100;
+    @include animation("move-up 600ms ease-in");
+    @include animation-fill-mode("both");
+  }
+}
+
+.tile {
+  width: $tile-size;
+  height: $tile-size;
+  line-height: $tile-size + 10px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: $tile-border-radius;
+
+  @include transition($transition-speed ease-in-out);
+  @include transition-property("top", "left");
+}

@@ -1,140 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-  <title>Регистрация</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/registrations/registration-6/assets/css/registration-6.css">
+  <title>Регистрация</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/css/bootstrap.min.css">
   <style>
-    /* Custom styles for your project */
-    body.custom-background {
-    background-color: #BE9B7B;
+    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
-
-    .container {
-      padding-top: 50px; /* Adjust padding for spacing */
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #BE9B7B; /* Light blue background */
     }
-
-    .card {
-      border-radius: 10px; /* Smooth corners for the card */
+    .wrapper {
+      position: relative;
+      max-width: 430px;
+      width: 100%;
+      background: #fff;
+      padding: 34px;
+      border-radius: 6px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
     }
-
-    h2 {
-      color: #333; /* Darker text for headers */
+    .wrapper h2 {
+      position: relative;
+      font-size: 22px;
+      font-weight: 600;
+      color: #333; /* Dark text color */
     }
-
-    .form-floating {
-      margin-bottom: 15px; /* Consistent margin between form fields */
+    .wrapper h2::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 28px;
+      border-radius: 12px;
+      background: #4070f4; /* Blue underline */
     }
-
-    .form-check {
-      margin-top: 10px; /* Add spacing for checkboxes */
+    .wrapper form {
+      margin-top: 30px; /* Margin between title and form */
     }
-
-    .btn {
-      background-color: #007bff; /* Primary blue button */
-      color: #fff; /* White text on buttons */
+    .wrapper form .input-box {
+      height: 52px;
+      margin: 18px 0; /* Spacing between inputs */
     }
-
-    .btn:hover {
-      background-color: #0056b3; /* Darker blue on hover */
+    form .input-box input {
+      height: 100%;
+      width: 100%;
+      outline: none;
+      padding: 0 15px;
+      font-size: 17px;
+      font-weight: 400;
+      color: #333; /* Text color */
+      border: 1.5px solid #C7BEBE; /* Border style */
+      border-bottom-width: 2.5px;
+      border-radius: 6px; /* Border radius */
+      transition: all 0.3s ease;
     }
-
-    /* Adjustments for smaller screens */
-    @media (max-width: 767px) {
-      .col-12 {
-        text-align: center; /* Center text on smaller screens */
-      }
+    .input-box input:focus,
+    .input-box input:valid {
+      border-color: #4070f4; /* Border color on focus or valid input */
+    }
+    form .policy {
+      display: flex;
+      align-items: center;
+    }
+    form .policy input {
+      margin-right: 10px; /* Space between checkbox and text */
+    }
+    form .input-box.button input {
+      color: #fff;
+      letter-spacing: 1px;
+      border: none;
+      background: #4070f4;
+      cursor: pointer; /* Pointer cursor for buttons */
+    }
+    .input-box.button input:hover {
+      background: #0e4bf1; /* Darker blue on hover */
+    }
+    form .text h3 {
+      color: #333; /* Darker text color */
+      width: 100%;
+      text-align: center; /* Centered text */
+    }
+    form .text h3 a {
+      color: #4070f4; /* Link color */
+      text-decoration: none; /* No underline */
+    }
+    form .text h3 a:hover {
+      text-decoration: underline; /* Underline on hover */
     }
   </style>
 </head>
-<body class="custom-background">
-    <section class="bg-primary p-3 p-md-4 p-xl-5">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
-              <div class="card border-0 shadow-sm rounded-4">
-                <div class="card-body p-3 p-md-4 p-xl-5">
-                  <div class="row">
-                    <div class="col-12 text-center">
-                      <h2>Регистрация нового пользователя</h2>
-                      <p>Введите ваши данные, чтобы зарегистрироваться</p>
-                    </div>
-                  </div>
-                  <form action="/register" method="POST">
-                    <div class="row gy-3">
-                      <div class="col-12">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" name="name" id="name" placeholder="ФИО" required>
-                          <label for="name">ФИО</label>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" name="username" id="username" placeholder="Имя пользователя" required>
-                          <label for="username">Имя пользователя</label>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="form-floating">
-                          <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
-                          <label for="email">Email</label>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="form-floating">
-                          <input type="password" class="form-control" name="password" id="password" placeholder="Пароль" required>
-                          <label for="password">Пароль</label>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="form-floating">
-                          <select class="form-control" name="class" id="class" required>
-                            <option value="">Выберите класс (школу)</option>
-                            <option value="10А">10Ա</option>
-                            <option value="10Б">10Բ</option>
-                            <option value="10В">10Գ</option>
-                            <!-- Добавьте другие варианты, если нужно -->
-                          </select>
-                          <label for="class">Класс</label>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" name="iAgree" id="iAgree" required>
-                          <label class="form-check-label" for="iAgree">
-                            Я соглашаюсь с <a href="#!" class="link-primary">условиями использования</a>
-                          </label>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="d-grid">
-                          <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                  <div class="row">
-                    <div class="col-12">
-                      <hr class="mt-5 mb-4">
-                      <p>Уже есть аккаунт? <a href="/login" class="link-primary">Войти</a></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-12">
-                      <p class="mt-3">Или продолжите с помощью:</p>
-                      <div class="d-flex gap-3 flex-column">
-                        <a href="#!" class="btn btn-danger">Sign in with Google</a>
-                        <a href="#!" class="btn btn-primary">Sign in with Facebook</a>
-                        <a href="#!" class="btn btn-info">Sign in with Twitter</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </section>
+<body>
+  <div class="wrapper">
+    <h2>Регистрация нового пользователя</h2>
+    <form action="{{ url_for('register') }}" method="POST"> <!-- Flask integration -->
+      <div class="input-box">
+        <input type="text" name="name" placeholder="Введите ваше имя" required>
+      </div>
+      <div class="input-box">
+        <input type="text" name="username" placeholder="Введите имя пользователя" required>
+      </div>
+      <div class="input-box">
+        <input type="email" name="email" placeholder="Введите email" required>
+      </div>
+      <div class="input-box">
+        <input type="password" name="password" placeholder="Создайте пароль" required>
+      </div>
+      <div class="policy">
+        <input type="checkbox" name="terms" required>
+        <h3>Я соглашаюсь с условиями и положениями</h3> <!-- Text for terms and conditions -->
+      </div>
+      <div class="input-box button">
+        <input type="submit" value="Зарегистрироваться"> <!-- Submit button -->
+      </div>
+      <div class="text">
+        <h3>Уже есть аккаунт? <a href="{{ url_for('login') }}">Войти сейчас</a></h3> <!-- Login link -->
+      </div>
+    </form>
+  </div>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
 </body>
 </html>

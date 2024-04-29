@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>@{{ username }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -105,236 +104,209 @@
         }
 
         .avatar-upload {
-            position: relative;
-            max-width: 200px;
-            margin: 50px auto;
-        }
+    position: relative;
+    max-width: 200px;
+    margin: 50px auto;
+}
 
-        .avatar-edit {
-            position: absolute;
-            right: 8px;
-            z-index: 1;
-            top: 1px;
-        }
+.avatar-edit {
+    position: absolute;
+    right: 8px;
+    z-index: 1;
+    top: 1px;
+}
 
-        input {
-            display: none;
-        }
+input {
+    display: none;
+}
 
-        label {
-            display: inline-block;
-            width: 34px;
-            height: 34px;
-            margin-bottom: 0;
-            border-radius: 100%;
-            background: #FFFFFF;
-            border: 1px solid transparent;
-            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
-            cursor: pointer;
-            font-weight: normal;
-            transition: all .2s ease-in-out;
-        }
+label {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    border-radius: 100%;
+    background: #FFFFFF;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+}
 
-        label:hover {
-            background: #f1f1f1;
-            border-color: #d6d6d6;
-        }
-
-        label:after {
-            content: "\f040";
-            font-family: 'FontAwesome';
-            color: #757575;
-            position: absolute;
-            top: 5px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            margin: auto;
-        }
-
-        .avatar-preview {
-            width: 100%;
-            height: auto;
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            background-color: #fff;
-        }
-
-        .avatar-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Контейнер для био */
-.bio-container {
+.avatar-preview {
+    width: 150px; /* Фиксированная ширина */
+    height: 150px; /* Фиксированная высота */
+    border-radius: 50%; /* Округленные углы для аватара */
+    overflow: hidden; /* Обрезать излишки изображения */
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
     background-color: #fff; /* Белый фон */
-    padding: 20px; /* Отступы внутри блока */
-    border-radius: 10px; /* Закругленные углы */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Легкая тень */
-    margin: 20px auto; /* Центрирование */
-    max-width: 400px; /* Ограничение ширины */
-    text-align: center; /* Центрирование текста */
 }
 
-/* Иконка карандаша для редактирования */
-#bio-display i {
-    color: #666; /* Темный серый цвет */
-    cursor: pointer; /* Указатель для иконки */
-    transition: color 0.3s; /* Плавный переход цвета */
+.avatar-preview img {
+    width: 100%; /* Изображение растягивается на всю ширину */
+    height: 100%; /* Изображение растягивается на всю высоту */
+    object-fit: cover; /* Сохранение пропорций */
 }
 
-#bio-display i:hover {
-    color: #ff7f50; /* Цвет при наведении */
-}
+        /* Styles for bio section */
+        .bio-container {
+            background-color: #fff; /* White background */
+            padding: 20px; /* Padding within the block */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Light shadow */
+            margin: 20px auto; /* Centering */
+            max-width: 400px; /* Width limit */
+            text-align: center; /* Text alignment */
+        }
 
-/* Текст био */
-#bio-text {
-    font-size: 1.2em; /* Увеличенный размер текста */
-    color: #333; /* Темный цвет */
-    display: inline-block; /* Для центрирования */
-}
+        #bio-display i {
+            color: #666; /* Dark gray color */
+            cursor: pointer; /* Pointer for the icon */
+        }
 
-/* Скрытая область для редактирования */
-#bio-edit-area {
-    display: none; /* По умолчанию скрыто */
-}
+        #bio-display i:hover {
+            color: #ff7f50; /* Hover color */
+        }
 
-/* Текстовое поле для редактирования */
-#bio-textarea {
-    width: 100%; /* Заполняет всю ширину */
-    border: 1px solid #ddd; /* Светлая граница */
-    border-radius: 8px; /* Закругленные углы */
-    padding: 10px; /* Внутренние отступы */
-    font-size: 1em; /* Размер шрифта */
-    outline: none; /* Убираем стандартное выделение */
-}
+        #bio-text {
+            font-size: 1.2em; /* Text size */
+            color: #333; /* Dark color */
+        }
 
-#bio-textarea:focus {
-    border-color: #ff7f50; /* Цвет границы при фокусе */
-}
+        #bio-edit-area {
+            display: none; /* Hidden by default */
+        }
 
-/* Кнопка сохранения */
-.bio-btn button {
-    background-color: #ff7f50; /* Оранжевый фон */
-    color: #fff; /* Белый текст */
-    border: none; /* Без границ */
-    border-radius: 8px; /* Закругленные углы */
-    padding: 10px 20px; /* Внутренние отступы */
-    cursor: pointer; /* Указатель */
-    transition: background-color 0.3s; /* Плавный переход цвета */
-}
+        #bio-textarea {
+            width: 100%; /* Full width */
+            border: 1px solid #ddd; /* Light border */
+            padding: 10px; /* Padding */
+        }
 
-.bio-btn button:hover {
-    background-color: #ff6347; /* Более темный оттенок при наведении */
-}
+        #bio-textarea:focus {
+            border-color: #ff7f50; /* Border color on focus */
+        }
+
+        .bio-btn button {
+            background-color: #ff7f50; /* Button background color */
+            color: #fff; /* Button text color */
+            padding: 10px; /* Padding */
+            border-radius: 8px; /* Rounded corners */
+            cursor: pointer;
+        }
+
+        .bio-btn button:hover {
+            background-color: #ff6347; /* Darker shade on hover */
+        }
     </style>
 </head>
 <body>
-
     <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
         <div class="card p-4">
             <div class="image d-flex flex-column justify-content-center align-items-center">
                 <div class="avatar-upload">
                     <div class="avatar-edit">
-                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
                         <label for="imageUpload"></label>
                     </div>
                     <div class="avatar-preview">
-                        <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg" alt="Profile Image">
+                        <img id="imagePreview" src="https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg" alt="Profile Image">
                     </div>
                 </div>
                 <span class="name mt-3">{{ name }}</span>
-                <span class="idd">@{{ username }} ☢️</span>
-                <div class="d-flex flex-row justify-content-center align-items-center gap-2">
-                    {% if verified %}
-                    <span class="idd1">Verified</span>
-                    {% else %}
-                    <span class="idd1">Not Verified</span>
-                    {% endif %}
-                </div>
+                <span class="idd">@{{ username }}</span>
                 <div class="d-flex flex-row justify-content-center align-items-center mt-3">
                     <span class="number">{{ friend_count }} <span class="follow">Friends</span></span>
                 </div>                
                 <div class="d-flex mt-2">
-                    <button class="btn1 btn-dark"><a href="{{ url_for('friends') }}">Friends</a></button>
+                    <button class="btn1 btn-dark"><a href="{{ url_for('friends') }}"><i class="fas fa-user-friends"></i></a></button>
+                    <button class="btn1 btn-dark ms-2"><a href="/chat"><i class="fas fa-comment"></i></a></button>
                 </div>
                 <div class="bio-container">
                     <div id="bio-display">
                         <span id="bio-text">No Bio Yet :)</span>
-                        <i id="bio-edit-icon" class="fa fa-pencil"></i> <!-- Иконка редактирования -->
+                        <i class="fa fa-pencil"></i> <!-- Edit icon -->
                     </div>
-                    <div id="bio-edit-area" style="display: none;">
+                    <div id="bio-edit-area">
                         <textarea id="bio-textarea"></textarea>
-                        <button id="bio-save-button">Save</button> <!-- Кнопка сохранения -->
+                        <button id="bio-save-button">Save</button> <!-- Save button -->
                     </div>
                 </div>
-                
-
                 <div class="px-2 rounded mt-4 date">
-                    <span class="join">AVAG PROJECT</span>
+                    <span class="join">Joined AVAG PROJECT</span>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
 
     <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#imagePreview').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
+document.getElementById('imageUpload').addEventListener('change', function () {
+    const imagePreview = document.getElementById('imagePreview');
+    const file = this.files[0];
 
-        $("#imageUpload").change(function() {
-            readURL(this);
-        });
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            imagePreview.src = e.target.result; // Update the preview
+        };
+        reader.readAsDataURL(file);
 
-        document.addEventListener('DOMContentLoaded', function () {
-    const editIcon = document.querySelector('#bio-edit-icon');
-    const bioDisplay = document.querySelector('#bio-text');
-    const bioEditArea = document.querySelector('#bio-edit-area');
-    const bioTextarea = document.querySelector('#bio-textarea');
-    const saveButton = document.querySelector('#bio-save-button');
+        // Send the file to the server
+        const formData = new FormData();
+        formData.append('image', file);
 
-    editIcon.addEventListener('click', function () {
-        bioDisplay.style.display = 'none';
-        bioEditArea.style.display = 'block';
-        bioTextarea.value = bioDisplay.textContent; // Получаем текущий текст био
-    });
-
-    saveButton.addEventListener('click', function () {
-        const newBio = bioTextarea.value;
-
-        fetch('/update_bio', {
+        fetch('/upload_profile_image', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ bio: newBio })
+            body: formData,
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                bioDisplay.textContent = data.bio; // Обновляем отображаемое био
-                bioDisplay.style.display = 'inline-block'; // Показываем обновленное био
-                bioEditArea.style.display = 'none'; // Скрываем область редактирования
+                console.log('Profile image updated successfully!');
             } else {
-                console.error(data.error);
+                alert('Error updating profile image: ' + data.error);
             }
         })
-        .catch(error => console.error(error));
-    });
+        .catch(error => console.error('Error:', error));
+    }
 });
 
-    </script>
+document.addEventListener('DOMContentLoaded', function () {
+    const editIcon = document.querySelector('#bio-display i');
+    const bioDisplay = document.getElementById('bio-display');
+    const bioEditArea = document.getElementById('bio-edit-area');
+    const bioTextarea = document.getElementById('bio-textarea');
+    const bioSaveButton = document.getElementById('bio-save-button');
+
+    editIcon.addEventListener('click', function () {
+        bioDisplay.style.display = 'none';
+        bioEditArea.style.display = 'block';
+    });
+
+    bioSaveButton.addEventListener('click', function () {
+        const bioText = bioTextarea.value;
+
+        fetch('/update_bio', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ bio: bioText }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('bio-text').textContent = bioText; // Update bio text
+                bioDisplay.style.display = 'block';
+                bioEditArea.style.display = 'none';
+            } else {
+                alert('Error updating bio: ' + data.error);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+</script>
 </body>
 </html>

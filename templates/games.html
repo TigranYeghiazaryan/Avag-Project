@@ -28,7 +28,7 @@
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
             <a href="index.html" class="logo d-flex align-items-center">
-                <h1>Avag Project</h1>
+                <h1>AVAG</h1>
             </a>
 
             <nav id="navbar" class="navbar">
@@ -109,10 +109,20 @@
                     <h2>Mafia</h2>
                     <p>Coming Soon....</p>
                 </div>
-                <div class="game-preview">
+                <div class="game-preview"  onclick="window.location.href='{{ url_for('flappybird') }}'">
                     <img src="{{ url_for('static', filename='img/game1.png') }}" alt="Game 3">
-                    <h2>Game 3</h2>
-                    <p>Description of Game 3</p>
+                    <h2>Flappy Bird</h2>
+                    <p>v0.1</p>
+                </div>
+                <div class="game-preview"  onclick="window.location.href='{{ url_for('c2048') }}'">
+                    <img src="{{ url_for('static', filename='img/game1.png') }}" alt="Game 3">
+                    <h2>2048</h2>
+                    <p>v0.1</p>
+                </div>
+                <div class="game-preview"  onclick="window.location.href='{{ url_for('memory') }}'">
+                    <img src="{{ url_for('static', filename='img/game1.png') }}" alt="Game 3">
+                    <h2>Sweet Memory</h2>
+                    <p>v0.1</p>
                 </div>
             </div>
         </div>
