@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Friend Requests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #BE9B7B; /* Background color */
+        }
+
+        .container {
+            margin-top: 30px; /* Add margin to the top */
+        }
+
+        .card {
+            width: 350px; /* Set width */
+            background-color: #efefef;
+            border: none;
+            cursor: pointer;
+            transition: all 0.5s;
+            box-shadow: 0 8px 8px rgba(63, 47, 32, 0.2); /* Shadow effect */
+            margin-bottom: 15px; /* Space between cards */
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 12px rgba(63, 47, 32, 0.2); /* Increase shadow on hover */
+        }
+
+        .card-body {
+            padding: 20px; /* Padding inside the card */
+        }
+
+        .card img {
+            border-radius: 50%; /* Round images */
+            width: 50px; /* Width of the profile image */
+            height: 50px; /* Height of the profile image */
+            object-fit: cover; /* Cover the whole space */
+            box-shadow: 0 3px 8px rgba(63, 47, 32, 0.2); /* Light shadow */
+        }
+
+        .card-title {
+            font-size: 18px; /* Title font size */
+            font-weight: bold; /* Bold title */
+        }
+
+        .card-text {
+            font-size: 14px; /* Text font size */
+        }
+
+        .btn {
+            background-color: #4070f4; /* Button color */
+            color: #fff; /* White text */
+            border-radius: 5px; /* Rounded corners */
+            border: none; /* No border */
+            padding: 10px; /* Padding */
+            margin: 5px; /* Space between buttons */
+            cursor: pointer; /* Pointer cursor */
+        }
+
+        .btn:hover {
+            background-color: #3059c8; /* Darker on hover */
+        }
+
+        .btn-danger {
+            background-color: #e74c3c; /* Red color for decline button */
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b; /* Darker red on hover */
+        }
+
+        .text-center {
+            text-align: center; /* Center the text */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">Friend Requests</h2> <!-- Title of the page -->
+        <div class="d-flex justify-content-center flex-wrap"> <!-- Flexbox to center the cards -->
+            {% if requests %}
+                {% for request in requests %}
+                    <div class="card"> <!-- Each card represents a friend request -->
+                        <div class="card-body d-flex align-items-center"> <!-- Card body with alignment -->
+                            <img src="{{ request.avatar }}" alt="{{ request.username }}" class="me-3"> <!-- Profile image -->
+                            <div class="d-flex flex-column"> <!-- Username and name -->
+                                <h3 class="card-title">{{ request.username }}</h3>
+                                <p class="card-text">{{ request.name }}</p>
+                            </div>
+                            <div class="d-flex ms-auto"> <!-- Accept and decline buttons -->
+                                <button class="btn" onclick="acceptRequest('{{ request.username }}')">Accept</button>
+                                <button class="btn btn-danger" onclick="declineRequest('{{ request.username }}')">Decline</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center">No pending friend requests.</p> <!-- If no friend requests -->
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function acceptRequest(username) {
+            fetch('/accept_friend_request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ requester: username }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload(); // Reload the page on success
+                } else {
+                    alert("Error accepting friend request: " + data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        function declineRequest(username) {
+            fetch('/remove_friend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ friend_to_remove: username }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload(); // Reload the page on success
+                } else {
+                    alert("Error declining friend request: " + data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
+</body>
+</html>

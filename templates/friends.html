@@ -178,7 +178,7 @@
                 button.prop('disabled', true);
                 button.html('<i class="bi bi-hourglass-split"></i> Pending');
 
-                $.post('{{ url_for("send_friend_request") }}', { requested_username: username }, function(response) {
+                $.post('{{ url_for("add_friend") }}', { requested_username: username }, function(response) {
                     if (response.status === 'success') {
                         alert("Friend request sent!");
                     } else {

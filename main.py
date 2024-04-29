@@ -98,6 +98,22 @@ def register():
 
     return render_template('register.html')  # Отображение страницы регистрации
 
+
+
+
+@app.route('/friend_requests')
+@login_required  # Ensure the user is logged in
+def friend_requests():
+    current_user = session.get('username', None)  # Get the current user
+    if not current_user:
+        return redirect(url_for('login'))  # Redirect to login if not logged in
+
+    # Get the pending friend requests for the current user
+    user_data = users_collection.find_one({'username': current_user})
+    pending_requests = user_data.get('pending_friend_requests', [])
+
+    return render_template('friend-requests.html', requests=pending_requests)  # Render the page with requests
+
 # Маршрут для входа
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -245,23 +261,27 @@ def chat_history():
 @app.route('/add_friend', methods=['POST'])
 @login_required
 def add_friend():
-    current_user = session['username']  # Текущий пользователь
-    friend_username = request.form['friend_username']  # Имя друга
+    current_user = session.get('username', None)
+    friend_username = request.form.get('friend_username', None)
 
-    if not friend_username:  # Если имя друга не передано
+    if not friend_username:
+        print("Error: friend_username not provided.")
         return jsonify({'status': 'error', 'message': 'Требуется имя друга'}), 400
 
-    if current_user == friend_username:  # Если пользователь пытается добавить себя
+    if current_user == friend_username:
+        print("Error: user tried to add themselves as a friend.")
         return jsonify({'status': 'error', 'message': 'Нельзя добавить себя в друзья'}), 400
 
-    # Добавление запроса на дружбу
-    users_collection.update_one(
-        {'username': friend_username}, 
-        {'$addToSet': {'pending_friend_requests': current_user}}
-    )
+    try:
+        users_collection.update_one(
+            {'username': friend_username},
+            {'$addToSet': {'pending_friend_requests': current_user}}
+        )
+    except Exception as e:
+        print("Error during update:", str(e))
+        return jsonify({'status': 'error', 'message': 'Database error'}), 500
 
     return jsonify({'status': 'success', 'message': 'Запрос на дружбу отправлен'})
-
 # Маршрут для принятия запроса на дружбу
 @app.route('/accept_friend_request', methods=['POST'])
 @login_required
@@ -299,26 +319,6 @@ def friends():
     return render_template('friends.html', friends=friends)
 
 
-
-@app.route('/send_friend_request', methods=['POST'])
-def send_friend_request():
-    requested_username = request.form.get('requested_username')
-    current_username = session.get('username')
-
-    if not current_username:
-        return jsonify({'status': 'error', 'message': 'User not logged in'}), 401
-
-    logging.info(f"Send friend request from {current_username} to {requested_username}")
-
-    if not requested_username:
-        return jsonify({'status': 'error', 'message': 'Invalid request'}), 400
-
-    users_collection.update_one(
-        {'username': requested_username},
-        {'$addToSet': {'pending_friend_requests': current_username}}
-    )
-
-    return jsonify({'status': 'success', 'message': 'Friend request sent'})
 
 @app.route('/search_users', methods=['POST'])
 def search_users():
